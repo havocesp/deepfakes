@@ -1,9 +1,9 @@
 import cv2
 import numpy
-from random import shuffle
 
 from .utils import BackgroundGenerator
 from .umeyama import umeyama
+import secrets
 
 coverage = 220 # Coverage of the face for training. Larger value will cover more features. @shaoanlu recommends 220. Original is 160
 
@@ -33,11 +33,11 @@ def read_image(fn, random_transform_args=random_transform_args):
 def minibatch(data, batchsize):
     length = len(data)
     epoch = i = 0
-    shuffle(data)
+    secrets.SystemRandom().shuffle(data)
     while True:
         size = batchsize
         if i+size > length:
-            shuffle(data)
+            secrets.SystemRandom().shuffle(data)
             i = 0
             epoch+=1        
         rtn = numpy.float32([read_image(data[j]) for j in range(i,i+size)])
