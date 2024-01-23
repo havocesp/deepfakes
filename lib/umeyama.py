@@ -58,8 +58,7 @@ def umeyama(src, dst, estimate_scale):
     U, S, V = np.linalg.svd(A)
 
     # Eq. (40) and (43).
-    rank = np.linalg.matrix_rank(A)
-    if rank == 0:
+    if (rank := np.linalg.matrix_rank(A)) == 0:
         return np.nan * T
     elif rank == dim - 1:
         if np.linalg.det(U) * np.linalg.det(V) > 0:

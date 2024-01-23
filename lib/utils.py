@@ -45,7 +45,6 @@ class BackgroundGenerator(threading.Thread):
 
     def iterator(self):
         while True:
-            next_item = self.queue.get()
-            if next_item is None:
+            if (next_item := self.queue.get()) is None:
                 break
             yield next_item
